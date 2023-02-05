@@ -9,6 +9,8 @@ const countStationsByFilter = asyncHandler(async (req, res) => {
   let stationOsoiteFilter = req.params.stationOsoiteFilter
   {stationNimiFilter === 'tyhjatyhja' && (stationNimiFilter = '')}
   {stationOsoiteFilter === 'tyhjatyhja' && (stationOsoiteFilter = '')}
+  stationNimiFilter = "^" +  stationNimiFilter
+  stationOsoiteFilter = "^" +  stationOsoiteFilter
 
   const results = await Station.find({"nimi": {$regex: stationNimiFilter, $options: 'i'},"osoite": {$regex: stationOsoiteFilter, $options: 'i'}}).count() 
   res.status(200).json(results)
