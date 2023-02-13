@@ -2,13 +2,18 @@ const asyncHandler = require('express-async-handler')
 const Station = require('../models/stationModel')
 
 
-// Laskee filtterien (stationNimiFilter ja stationOsoiteFilter) perusteella asemat(stations)
+// Laskee asemien lukumäärän filtterien perusteella
+// parametreina filtterit (stationNimiFilter ja stationOsoiteFilter) 
 const countStationsByFilter = asyncHandler(async (req, res) => {
   
   let stationNimiFilter = req.params.stationNimiFilter
   let stationOsoiteFilter = req.params.stationOsoiteFilter
+
+  // muuttaa tyhjatyhja-merkkijonoiksi muutetut takaisin tyhjiksi merkkijonoiksi
   {stationNimiFilter === 'tyhjatyhja' && (stationNimiFilter = '')}
   {stationOsoiteFilter === 'tyhjatyhja' && (stationOsoiteFilter = '')}
+
+  // lisää väkäsen filtterien eteen, niin hakee filttereillä alkavat asemat
   stationNimiFilter = "^" +  stationNimiFilter
   stationOsoiteFilter = "^" +  stationOsoiteFilter
 
@@ -17,7 +22,8 @@ const countStationsByFilter = asyncHandler(async (req, res) => {
 })
 
 
-// Hakee aseman(station) _id numeron perusteella, jonka saa StationListasta
+// Hakee aseman tiedot
+// parametrina _id
 const readStation = asyncHandler(async (req, res) => {
   const station = await Station.findById(req.params.id)
   
@@ -30,31 +36,34 @@ const readStation = asyncHandler(async (req, res) => {
 })
 
 
-// Hakee aseman(station) tiedot filtterien (stationNimiFilter ja stationOsoiteFilter) perusteella
-// järjesteltynä nimen tai osoitteen perusteella, sivu kerrallaan
-// Parametrina taulukko, jossa page, resultsOnPage, sortAscending, sortColumn, stationNimiFilter, stationOsoiteFilter, 
+// Hakee asemat
+// parametrina parametritaulukko: page, resultsOnPage, stationNimiFilter, stationOsoiteFilter, sortAscending ja sortColumn
+// järjestettynä (joko nimen tai osoitteen mukaan)
 const readStationsSearchSortPageByPage = asyncHandler(async (req, res) => {
-  console.log('stationController: readStationsSearchSortPageByPage')
-  console.log('stationControlleriin tulleet:' + req.params)
   
   const page = req.params.page
   const resultsOnPage = req.params.resultsOnPage
   const sortAscending = req.params.sortAscending
   const sortColumn = req.params.sortColumn
-
+  
   let stationNimiFilter = req.params.stationNimiFilter
   let stationOsoiteFilter = req.params.stationOsoiteFilter
+
+  // muuttaa tyhjatyhja-merkkijonoiksi muutetut takaisin tyhjiksi merkkijonoiksi
   {stationNimiFilter === 'tyhjatyhja' && (stationNimiFilter = '')}
   {stationOsoiteFilter === 'tyhjatyhja' && (stationOsoiteFilter = '')}
+  
+  // lisää väkäsen filtterien eteen, niin hakee filttereillä alkavat asemat
   stationNimiFilter = "^" +  stationNimiFilter
   stationOsoiteFilter = "^" +  stationOsoiteFilter
 
+  // vaihtaa järjestyksen aakkosista öökkösiin
   let sort = 1
   {sortAscending === 'false' && (sort = '-1')}
   
-  const stations = await Station.find({"nimi": {$regex: stationNimiFilter, $options: 'i'},"osoite": {$regex: stationOsoiteFilter, $options: 'i'}}, {_id: 0, nimi: 1, osoite: 1, fid: 1, kapasiteetti: 1})
+  const stations = await Station.find({"nimi": {$regex: stationNimiFilter, $options: 'i'},"osoite": {$regex: stationOsoiteFilter, $options: 'i'}}, {_id: 1, nimi: 1, osoite: 1, fid: 1, kapasiteetti: 1})
                                 .sort({[sortColumn]: sort})
-                                .skip(page).limit(resultsOnPage)
+                                .skip(page*resultsOnPage).limit(resultsOnPage)
 
   if(!stations) {
     res.status(400)
