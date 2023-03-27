@@ -3,6 +3,7 @@ README.md
 Tekijä: Heli Kleemola
 
 Pvm: 6.3.2023
+Muutettu 27.3.2023: Lisätty backendiin matkojen hallintaan liittyvät tiedostot (journeyController, journeyModel ja journeyRoutes) ja lisäyksiä myös asemien luomiseen ja poistamiseen liittyvissä tiedostoissa (stationController, stationRoutes). Myös pieniä muutoksia server.js-tiedostoon. Backend testattu Insomnialla toimivaksi. Frontendissä nämä muutokset eivät näy vielä mitenkään, joten tätä README.md-tiedostoa ei ole muuten päivitetty.
 
 # Kaupunkipyöräasemien hallintaohjelma
 
@@ -45,7 +46,7 @@ Tätä sovellusta kehitetään Solita Dev Academyn ennakkotehtävän määrittel
 
 ## Käytetyt ohjelmat:
 
-- Visual Code: koodin kirjoittamiseen
+- Visual Studio Code: koodin kirjoittamiseen
 
 - Insomnia: backendin toimivuuden testaukseen
 

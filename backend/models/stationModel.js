@@ -3,14 +3,10 @@ const mongoose = require('mongoose')
 const stationSchema = mongoose.Schema(
   {
     fid: {
-      type: Number,
-      unique: true,
-      required: [true, 'Lisää reitin FID']
+      type: Number
     },
     id: {
-      type: Number,
-      unique: true,
-      required: [true, 'Lisää reitin ID']
+      type: Number
     },
     nimi: {
       type: String,
@@ -18,14 +14,10 @@ const stationSchema = mongoose.Schema(
       required: [true, 'Lisää aseman nimi']
     },
     namn: {
-      type: String,
-      unique: true,
-      required: [true, 'Lisää aseman namn']
+      type: String
     },
     name: {
-      type: String,
-      unique: true,
-      required: [true, 'Lisää aseman name']
+      type: String
     },
     osoite: {
       type: String,
@@ -33,15 +25,13 @@ const stationSchema = mongoose.Schema(
     },
     adress: {
       type: String,
-      required: [true, 'Lisää aseman adress']
     },
     kaupunki: {
       type: String,
       required: [true, 'Lisää aseman kaupunki']
     },
     stad: {
-      type: String,
-      required: [true, 'Lisää aseman stad']
+      type: String
     },
     operaattori: {
       type: String,
@@ -61,7 +51,6 @@ const stationSchema = mongoose.Schema(
     },
   }
 )
-
 
 
 module.exports = mongoose.model('Station', stationSchema)
