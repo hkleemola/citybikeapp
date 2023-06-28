@@ -3,7 +3,7 @@ README.md
 Tekijä: Heli Kleemola
 
 Pvm: 28.6.2023
-Projekti tauolla, koska pääsin Sulautetun ohjelmoinnin osaaja -koulutukseen. Koulutus on melko intensiivistä, eikä aikaa muuhun koodaamiseen jää. Siksipä projekti on nyt tauolla ja jatkuu ehkä joskus.
+Projekti tauolla, koska pääsin Sulautetun ohjelmoinnin osaaja -koulutukseen. Koulutus on melko intensiivistä, eikä aikaa muuhun koodaamiseen jää. Siksipä projekti on nyt tauolla ja jatkuu... ehkä joskus.  
 Pvm: 6.3.2023
 Muutettu 27.3.2023: Lisätty backendiin matkojen hallintaan liittyvät tiedostot (journeyController, journeyModel ja journeyRoutes) ja lisäyksiä myös asemien luomiseen ja poistamiseen liittyvissä tiedostoissa (stationController, stationRoutes). Myös pieniä muutoksia server.js-tiedostoon. Backend testattu Insomnialla toimivaksi. Frontendissä nämä muutokset eivät näy vielä mitenkään, joten tätä README.md-tiedostoa ei ole muuten päivitetty.
 
